@@ -478,6 +478,11 @@
       this._active = {};
       this._device = null;
       this._hold = {};
+      this._sequence = [];
+    }
+
+    didPerform(commands) {
+
     }
 
     keyDown(commandEnum) {
@@ -505,6 +510,17 @@
         if (this._active.hasOwnProperty(i)) {
           if (LAST[i]) {
             this._hold[i] = true;
+          }
+        }
+      }
+
+      for (let i in CommandEnum) {
+        if (CommandEnum.hasOwnProperty(i)) {
+          const COMMAND = CommandEnum[i];
+
+          if (this.keyPush(COMMAND)) {
+            this._sequence.push(COMMAND);
+            console.log(this._sequence);
           }
         }
       }
